@@ -1,0 +1,10 @@
+## Interface: 61000
+## Author: Lleaf
+## Version: 0.1
+## Title: |cff1784d1ElvUI|r Nameplate Tweaks
+## Notes: Improves ElvUI's nameplates
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
+
+config.lua
+core.lua
