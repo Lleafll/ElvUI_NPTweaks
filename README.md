@@ -1,7 +1,7 @@
 Adds the following functionality to ElvUI's nameplates:
 - nameplate coloring for an additional health range
 
-Changes the following behavior of ElvUI's nameplateS:
+Changes the following behavior of ElvUI's nameplates:
 - removes glow for low health
 - faster appearance of target indicator after target change
 - faster update for mouseover alpha
