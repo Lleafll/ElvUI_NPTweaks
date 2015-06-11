@@ -128,6 +128,7 @@ end
 --------------------------------------------------------------------------------------------------
 do
 	local WorldFrame = WorldFrame
+	local updateInterval = 0.1
 	
 	function NP:OnUpdate(elapsed)
 		local count = WorldFrame:GetNumChildren()
@@ -150,7 +151,7 @@ do
 		NP.PlateParent:Show()
 		
 		--== altered code ==--
-		if(self.elapsed and self.elapsed > 0.1) then
+		if(self.elapsed and self.elapsed > updateInterval) then
 		--== end altered code ==--
 			for blizzPlate, plate in pairs(NP.CreatedPlates) do
 				if(blizzPlate:IsShown() and plate:IsShown()) then
@@ -170,12 +171,13 @@ do
 		WorldFrame.elapsed = 0.17
 	end
 	
+	local setUpdateInterval = updateInterval + 1
 	do
 		local original_PLAYER_TARGET_CHANGED = NP.PLAYER_TARGET_CHANGED
 		function NP:PLAYER_TARGET_CHANGED()
 			original_PLAYER_TARGET_CHANGED(self)
 			if UnitExists("target") then
-				C_TimerAfter(0.01, function() WorldFrame.elapsed = 2 end)
+				C_TimerAfter(0.01, function() WorldFrame.elapsed = setUpdateInterval end)
 			end
 		end
 	end
