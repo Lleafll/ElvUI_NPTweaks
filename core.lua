@@ -18,15 +18,19 @@ local UnitExists = UnitExists
 function NP:ColorizeAndScale(myPlate)
 	local unitType = NP:GetReaction(self)
 	local scale = 1
+	local canAttack = false
 
 	self.unitType = unitType
-	if RAID_CLASS_COLORS[unitType] then
+	if CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[unitType] then
+		color = CUSTOM_CLASS_COLORS[unitType]
+	elseif RAID_CLASS_COLORS[unitType] then
 		color = RAID_CLASS_COLORS[unitType]
 	elseif unitType == "TAPPED_NPC" then
 		color = NP.db.reactions.tapped
 	elseif unitType == "HOSTILE_NPC" or unitType == "NEUTRAL_NPC" then
 		local classRole = E.role
-		local threatReaction = NP:GetThreatReaction(self)
+		local threatReaction, redValue, greenValue = NP:GetThreatReaction(self)
+		canAttack = true
 		if(not NP.db.threat.enable) then
 			if unitType == "NEUTRAL_NPC" then
 				color = NP.db.reactions.neutral
@@ -70,6 +74,8 @@ function NP:ColorizeAndScale(myPlate)
 		end
 
 		self.threatReaction = threatReaction
+		self.prevRedValue = redValue
+		self.prevGreenValue = greenValue
 	elseif unitType == "FRIENDLY_NPC" then
 		color = NP.db.reactions.friendlyNPC
 	elseif unitType == "FRIENDLY_PLAYER" then
